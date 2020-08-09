@@ -7,7 +7,7 @@ Run server in developer mode:
     npm run dev
 ```
 
-<div style='color:green'>//default port http://localhost:3000</div>
+<div style='color:green'>//server on http://localhost:3000</div>
 
 ## Sudoku
 
