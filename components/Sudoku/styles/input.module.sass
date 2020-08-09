@@ -1,0 +1,28 @@
+.input
+    color: violet
+    font-size: inherit
+    top: 100%
+    left: 50%
+    width: 100%
+    position: absolute
+    user-select: none
+    z-index: 100000
+    &_mode
+        &_match
+            background: black
+        &_write
+            background: #6c0080
+    &_keys
+        display: grid
+        grid-template-columns: repeat(3, auto)
+        &_key
+            font-size: 50%
+            &:hover
+                background: #97ca20
+        &_current
+            background: gold
+        &_disabled
+            opacity: 0.4
+            background: gray
+            &:hover
+                background: aqua
