@@ -1,4 +1,4 @@
-# Mini-projects for developing skills in development under the React framework
+# Mini-projects for progressing skills in development under the React framework
 
 ```
 Install package:
