@@ -12,3 +12,7 @@ Run server in developer mode:
 ## Sudoku
 
 <img src='screens/sudoku.png' width=350><br>
+
+## Tic-Tac-Toe
+
+<img src='screens/tictactoe.png' width=350><br>

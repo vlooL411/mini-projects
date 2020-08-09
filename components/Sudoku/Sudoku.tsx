@@ -42,7 +42,7 @@ const Sudoku = (): ReactElement => {
     }, [cells])
 
 
-    return (<>
+    return <>
         {finish ? <h1>Finish</h1> : null}
         <div className={`${sudoku} ${finish ? sudoku_finish : ''}`}>
             {cells.map((arrCells, i) =>
@@ -96,7 +96,7 @@ const Sudoku = (): ReactElement => {
                         />)}
                 </ul>)}
         </div>
-    </>);
+    </>
 }
 
 export default Sudoku

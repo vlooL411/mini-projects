@@ -1,0 +1,23 @@
+.game
+    width: inherit
+    height: inherit
+    display: flex
+.tictac
+    width: 50%
+    height: 100%
+    font-size: inherit
+    border: 2px solid orange
+    display: grid
+    grid-template-columns: repeat(3, auto)
+    user-select: none
+    &_win
+        user-select: none
+        //.toe in the file ./styles/toe.module.sass
+//.history_game in the file ./styles/historygame.module.sass
+.current_move
+    user-select: none
+    font-size: 30%
+    &_char
+        color: green
+        font-size: 145%
+        padding-left: 1ch

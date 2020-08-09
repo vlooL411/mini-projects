@@ -44,7 +44,7 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
         } else changeCell((+cellC) as TCell)
     }
 
-    return (<>
+    return <>
         <button
             className={[
                 cell,
@@ -69,7 +69,7 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
 
             {focus ? <Input charCurrent={char} possibleChar={possibleChar} mode={modeWrite} changeCell={changeCellChar} /> : null}
         </button>
-    </>)
+    </>
 }
 
 export default Cell

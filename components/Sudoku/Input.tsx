@@ -13,7 +13,7 @@ const Input = ({ charCurrent, possibleChar, mode, changeCell }: Props): ReactEle
 
     const { input, input_keys, input_keys_current, input_keys_key } = style
     const { input_keys_disabled, input_mode_match, input_mode_write } = style
-    return (<div className={`${input} ${mode ? input_mode_write : input_mode_match}`}>
+    return <div className={`${input} ${mode ? input_mode_write : input_mode_match}`}>
         <ul className={input_keys}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key, i) =>
                 <li key={i} onClick={() => changeCell(key.toString())}
@@ -27,7 +27,7 @@ const Input = ({ charCurrent, possibleChar, mode, changeCell }: Props): ReactEle
                 X
             </li>
         </ul>
-    </div>)
+    </div>
 }
 
 export default Input

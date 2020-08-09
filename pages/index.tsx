@@ -4,7 +4,7 @@ import Sudoku from "../components/Sudoku/Sudoku";
 const Index = (): ReactElement => {
 
   return (<>
-    <div style={{ width: '500px', height: '500px', fontSize: '65px' }}>
+    <div style={{ padding: 20, width: 500, height: 500, fontSize: 65 }}>
       <Sudoku />
     </div>
   </>)
