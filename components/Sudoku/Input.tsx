@@ -20,7 +20,7 @@ const Input = ({ charCurrent, possibleChar, mode, changeCell }: Props): ReactEle
                     className={`${input_keys_key} ${charCurrent == key ? input_keys_current : ''} ${possibleChar.includes(key as TCell) ? input_keys_disabled : ''}`}>
                     {key}
                 </li>)}
-            <li className={input_keys_key} key={13}></li>
+            <li key={13}></li>
             <li className={input_keys_key} key={11} onClick={() => changeCell('w')}>W</li>
             <li key={12} onClick={() => changeCell('x')}
                 className={`${input_keys_key} ${mode ? input_keys_disabled : ''}`}>
