@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect, useMemo, useReducer } from "react"
+import { ReactElement, useState, useEffect } from "react"
 import style from "./styles/sudoku.module.sass"
 import Cell, { TCell } from "./Cell";
 import { GenerateSudoku } from "./GenerateSudoku";
@@ -44,6 +44,7 @@ const Sudoku = (): ReactElement => {
 
     return <>
         {finish ? <h1>Finish</h1> : null}
+        <button onClick={() => { }}>New game</button>
         <div className={`${sudoku} ${finish ? sudoku_finish : ''}`}>
             {cells.map((arrCells, i) =>
                 <ul key={i} className={sudoku_cells}>

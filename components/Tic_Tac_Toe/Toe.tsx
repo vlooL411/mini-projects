@@ -1,8 +1,10 @@
-import { ReactElement, useState, useEffect, memo } from "react";
+import { ReactElement } from "react";
 import style from './styles/toe.module.sass'
 
+export type TToeChar = 'x' | 'o' | null
+
 export type TToe = {
-    char: 'x' | 'o' | null
+    char: TToeChar
     light?: boolean
     onClick?(): void
 }
