@@ -17,9 +17,11 @@
   "author": "vlooL",
   "license": "ISC",
   "dependencies": {
+    "loaders.css": "^0.1.2",
     "next": "^9.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-loaders": "^3.0.1",
     "sass": "^1.26.10"
   },
   "devDependencies": {

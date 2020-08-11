@@ -1,0 +1,26 @@
+.todos
+    display: grid
+    grid-template-columns: repeat(3, auto)
+    justify-content: center
+    .todo
+        content-visibility: hidden
+        border: 1px solid black
+        margin: 5px
+        width: 200px
+        height: 200px
+        font-size: 40px
+        &_id
+            color: violet
+            font-size: 40%
+        &_userid
+            color: gold
+            font-size: 34%
+        &_title
+            color: green
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+        &_completed
+            background: gray
+        &_uncompleted
+            background: black
