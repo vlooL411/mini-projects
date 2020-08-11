@@ -21,6 +21,7 @@ function ScrollingFeed<T>({ stepInterval = 15, container, loader,
     maxDataLength, typeloader = "pacman",
     responseData, children }: Props<T>): ReactElement {
     const { feed, loaderDefault, containerDefault } = styleDefault
+    
     const [datass, _/* setDatass */] = useState<T[][]>([])
     const [interval, setInterval] = useState<Interval>({ start: 0, end: stepInterval })
     const [loading, setLoading] = useState(false)
