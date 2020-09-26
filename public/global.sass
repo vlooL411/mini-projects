@@ -1,0 +1,56 @@
+$primary-color: black
+@import 'loaders.css/src/animations/pacman.scss'
+
+.loader-hidden
+    display: none
+.loader-active 
+    display: block
+    
+html, body, #__next
+    width: 100%
+    height: 100vh
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+input, textarea
+    font: inherit
+button
+    padding: 0.5em 1em
+    margin: auto
+    border: none
+    background: none
+    border: 1px solid red
+    border-radius: 6%
+p
+    padding: 0
+    margin: 0
+
+input[type=checkbox]
+    appearance: none
+    border: 1px solid pink
+    margin: auto 10px
+    padding: 10px
+    text-align: center
+    position: relative
+    &:checked
+        background-color: #43e22e
+        &:before, &:after
+            content: ''
+            position: absolute
+            background-color: white
+            width: 10%
+        &:before
+            top: 8px
+            left: 6px
+            height: 28%
+            transform: skewX(30deg)
+        &:after
+            content: ''
+            top: 5px
+            left: 10px
+            height: 43%
+            transform: skewX(-30deg)
+    &:focus
+        &-visible
+            outline: none
+            border-color: black

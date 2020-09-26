@@ -1,5 +1,5 @@
-import { ReactElement, useState, useRef } from "react"
 import Input from "./Input"
+import { ReactElement, useState, useRef } from "react"
 import style from "./styles/cell.module.sass"
 
 export type TCell = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | null
@@ -23,11 +23,15 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
     const [possibleChar, setPossibleChar] = useState<TCell[]>([])
     const [modeWrite, setModeWrite] = useState<boolean>(false)
 
-    const changeCellChar = (cellChar: string): void => {
+    const isPossibleCharLengthZero = () => possibleChar.length == 0
+
+    const onChangeCellChar = (cellChar: string): void => {
+        if (!cellChar || cellChar?.length == 0) return
+
         const cellC = cellChar.toLowerCase()[0]
         if (cellC == 'x') changeCell(null)
         else if (cellC === 'w') {
-            modeWrite ? possibleChar.length = 0 : changeCell(null)
+            modeWrite ? isPossibleCharLengthZero() : changeCell(null)
             setModeWrite(!modeWrite)
         }
 
@@ -44,30 +48,55 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
         } else changeCell((+cellC) as TCell)
     }
 
+    const onClick = () => {
+        if (!focus)
+            inputRef?.current?.focus()
+    }
+
+    const onFocus = () => {
+        if (!disabled)
+            setFocus(true)
+    }
+
+    const onBlur = () => {
+        if (!disabled)
+            setFocus(false)
+    }
+
+    const onMouseLeave = () => inputRef.current?.blur()
+
+    const classesName = (): string =>
+        [
+            cell,
+            char && !disabled ? cell_mark : '',
+            !isPossibleCharLengthZero() ? cell_possible : '',
+            disabled ? cell_disabled : '',
+            current ? cell_current : '',
+            light && !current && !disabled ? cell_light : '',
+            danger ? cell_danger : ''
+        ].join(' ')
+
     return <>
         <button
-            className={[
-                cell,
-                char && !disabled ? cell_mark : '',
-                possibleChar.length != 0 ? cell_possible : '',
-                disabled ? cell_disabled : '',
-                current ? cell_current : '',
-                light && !current && !disabled ? cell_light : '',
-                danger ? cell_danger : '']
-                .join(' ')}
-            onKeyDown={e => !disabled ? changeCellChar(e.key) : null}
-            ref={focus ? inputRef : null}
-            onFocus={() => !disabled ? setFocus(true) : null}
-            onBlur={() => !disabled ? setFocus(false) : null}
-            onClick={() => !focus ? inputRef.current?.focus() : null}
+            ref={inputRef}
+            className={classesName()}
+            onKeyDown={(e) => onChangeCellChar(e.key)}
+            onClick={onClick}
+            onFocus={onFocus}
+            onBlur={onBlur}
             onMouseEnter={mouseEnter}
-            onMouseLeave={() => inputRef.current?.blur()}>
+            onMouseLeave={onMouseLeave}>
 
-            <div className={`${cell_char} ${possibleChar.length == 0 ? cell_char_mark : cell_char_possible}`}>
+            <div className={`${cell_char} ${isPossibleCharLengthZero() ? cell_char_mark : cell_char_possible}`}>
                 {char ?? possibleChar}
             </div>
 
-            {focus ? <Input charCurrent={char} possibleChar={possibleChar} mode={modeWrite} changeCell={changeCellChar} /> : null}
+            {focus ?
+                <Input charCurrent={char}
+                    mode={modeWrite}
+                    possibleChar={possibleChar}
+                    changeCell={onChangeCellChar} /> :
+                null}
         </button>
     </>
 }

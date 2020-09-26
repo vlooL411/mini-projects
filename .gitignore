@@ -2,8 +2,10 @@
 # next.js build output
 .next
 # dotenv environment variables file (build for Zeit Now)
-.env
-.env.build
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 # Dependency directories
 node_modules/
 # Logs

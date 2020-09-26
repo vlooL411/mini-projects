@@ -1,14 +1,16 @@
+import HistoryGame from "./HistoryGame";
+import Toe, { TToe, TToeChar } from "./Toe";
 import { ReactElement, useState, useEffect } from "react";
 import style from './styles/tic_tac_toe.module.sass'
-import Toe, { TToe, TToeChar } from "./Toe";
-import HistoryGame from "./HistoryGame";
+
+const toesInit = (): TToe[] => Array.from({ length: 9 }, _ => ({ char: null }))
 
 const Tic_Tac_Toe = (): ReactElement => {
     const { tictac, tictac_win, current_move, current_move_char } = style
     const { game } = style
 
     const [firstRunGame, setFirstRunGame] = useState<boolean>(true)
-    const [toes, setToes] = useState<TToe[]>(Array.from({ length: 9 }, _ => ({ char: null })))
+    const [toes, setToes] = useState<TToe[]>(toesInit())
     const [currentMove, setCurrentMove] = useState<boolean>(true)
     const [win, setWin] = useState<boolean>(false)
     const [history, _] = useState<TToe[][]>([])
@@ -16,7 +18,7 @@ const Tic_Tac_Toe = (): ReactElement => {
     const reset = () => {
         history.length = 0
         setFirstRunGame(true)
-        setToes(Array.from({ length: 9 }, _ => ({ char: null })))
+        setToes(toesInit())
         setCurrentMove(true)
         setWin(false)
     }
@@ -45,7 +47,7 @@ const Tic_Tac_Toe = (): ReactElement => {
         let checWin = checkWin()
 
         setToes([...toes])
-        history.push(toes.map(t => Object.assign({}, t)))
+        history.push(toes.map(t => ({ ...t })))
 
         if (checWin)
             setWin(true)
@@ -77,7 +79,7 @@ const Tic_Tac_Toe = (): ReactElement => {
                     if (history.length == num + 1) return
                     history.length = num + 1
                     setFirstRunGame(true)
-                    setToes(history[num].map(h => Object.assign({}, h)))
+                    setToes(history[num].map(h => ({ ...h })))
                     setCurrentMove(num % 2 != 0)
                     setWin(false)
                 }} />
@@ -89,8 +91,7 @@ const Tic_Tac_Toe = (): ReactElement => {
                 <span className={current_move_char}>
                     {GetMove(!currentMove)}
                 </span>
-            </>
-                : history.length == 9 ? <>End</> : null}
+            </> : history.length == 9 ? <>End</> : null}
         </div>
     </>
 }

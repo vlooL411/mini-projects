@@ -1,6 +1,7 @@
+import { Point } from ".";
 import { TCell } from "./Cell";
 
-export function GenerateSudoku(): TCell[][] {
+const GenerateSudoku = (): TCell[][] => {
   const sudoku: TCell[][] = Array.from({ length: 9 }, () =>
     Array.from({ length: 9 }, (_, j) => (j + 1) as TCell)
   );
@@ -50,4 +51,28 @@ export function GenerateSudoku(): TCell[][] {
   }
 
   return sudoku;
-}
+};
+
+export const Generate = (): {
+  cells: TCell[][];
+  answers: TCell[][];
+  primaryAnswers: Point[];
+} => {
+  const primaryAnswers: Point[] = [];
+  const answers = GenerateSudoku();
+  const cells: TCell[][] = Array.from({ length: 9 }, (_) =>
+    Array(9).fill(null)
+  );
+
+  const countElemntsForGet = (((Math.random() * 100) % 81) + 5) / 3;
+  for (let i = 0; i < countElemntsForGet; i++) {
+    const [v, h] = [
+      Math.floor((Math.random() * 10) % 9),
+      Math.floor((Math.random() * 10) % 9),
+    ];
+    primaryAnswers.push({ v, h });
+    cells[v][h] = answers[v][h];
+  }
+
+  return { cells, answers, primaryAnswers };
+};

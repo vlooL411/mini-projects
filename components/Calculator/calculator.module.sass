@@ -1,0 +1,64 @@
+$back: #6abaac
+$button: #d3765c
+$num: #111
+$compute: #2e3436
+
+.calculator
+    background-color: $back
+    padding: 2rem
+    padding-top: .5rem
+    header
+        color: white
+        text-align: center
+        font-size: 1.1em
+        margin-bottom: 1.5rem
+    .info
+        background-color: $button
+        margin: .1em
+        color: white
+        border: 3px solid white
+        border-radius: 1rem
+        font-size: 1em
+        input
+            font-size: .6em
+            background: none
+            border: none
+            width: 97%
+            padding-left: 1.5%
+            text-align: right
+            margin: 0
+            color: white
+            &:focus
+                outline: none
+        p
+            border-top: 3px solid white
+            text-align: center
+            font-size: .6em
+    .action
+        display: grid
+        justify-content: center
+        grid-template-columns: repeat(4, auto)
+        grid-template-rows: repeat(4, auto)
+        button
+            user-select: none
+            text-align: center
+            padding: 0
+            height: 2.5em
+            width: 2.8em
+            border-radius: 1rem
+            font-size: .5em
+            color: white
+            margin: .1em .2em
+            &:focus
+                outline: none
+                border: 2px solid black
+        .zero
+            grid-area: 5 / 1 / 6 / 3
+            width: auto
+        .sign
+            background-color: white
+            color: $compute
+        .num
+            background-color: $button
+        .compute
+            background-color: $compute

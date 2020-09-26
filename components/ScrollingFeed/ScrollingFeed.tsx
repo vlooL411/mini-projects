@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo, CSSProperties, useEffect } from "react";
+import { ReactElement, useState, useMemo, useRef, CSSProperties, useEffect, MutableRefObject } from "react";
 import styleDefault from './sccrollingfeed.module.sass'
 import Loader, { LoaderType } from 'react-loaders'
 
@@ -8,63 +8,84 @@ export type Interval = {
 }
 
 type Props<T> = {
+    onlyBody?: boolean
+    shiftScroll?: number
     stepInterval?: number
     maxDataLength: number
     typeloader?: LoaderType
+    style?: CSSProperties
+    feed?: string //css class
     container?: string //css class
     loader?: string //css class
     responseData(interval: Interval): T[]
     children(data: T, key?: number): ReactElement
 }
 
-function ScrollingFeed<T>({ stepInterval = 15, container, loader,
+function ScrollingFeed<T>({ onlyBody = false, shiftScroll = 0,
+    stepInterval = 15, style, feed, container, loader,
     maxDataLength, typeloader = "pacman",
     responseData, children }: Props<T>): ReactElement {
-    const { feed, loaderDefault, containerDefault } = styleDefault
-    
-    const [datass, _/* setDatass */] = useState<T[][]>([])
+    const { feedDefault, loaderDefault, containerDefault } = styleDefault
+
+    const scrollBody = useRef<HTMLDivElement>(null!)
+    const [datass, setDatass] = useState<T[]>([])
     const [interval, setInterval] = useState<Interval>({ start: 0, end: stepInterval })
     const [loading, setLoading] = useState(false)
     const [isScrollCollapse, setIsScrollCollapse] = useState<boolean>(true)
 
-    const MaxTodos = useMemo<boolean>(() => interval.end <= maxDataLength, [interval])
+    const isMaxDatas = (): boolean => interval.end <= maxDataLength
     const UpdateInterval = (): void => {
         [interval.start, interval.end] = [interval.end, interval.end + stepInterval]
         setInterval({ ...interval })
     }
 
-    useMemo(() =>
-        globalThis.onscroll = _ => {
-            const { scrollY } = globalThis
-            const { scrollHeight, offsetHeight } = document.body
-            if (!loading && MaxTodos && scrollY >= scrollHeight - offsetHeight) {
-                if (isScrollCollapse || scrollHeight - offsetHeight == 0)
+    useEffect(() => {
+        (onlyBody ? globalThis : scrollBody.current).onscroll = (ev) => {
+            let scrollY, scrollH, offsetH;
+            if (onlyBody) {
+                const { scrollHeight, clientHeight } = document.body
+                scrollY = globalThis.scrollY
+                scrollH = scrollHeight
+                offsetH = clientHeight
+            }
+            else {
+                const { scrollTop, scrollHeight, offsetHeight } = scrollBody.current
+                scrollY = scrollTop
+                scrollH = scrollHeight
+                offsetH = offsetHeight
+            }
+            scrollY += shiftScroll
+            if (!loading && isMaxDatas() && scrollY >= scrollH - offsetH) {
+                if (isScrollCollapse || scrollH - offsetH == 0)
                     setIsScrollCollapse(false)
                 UpdateInterval()
             }
-        }, [])
+        }
+    }, [])
 
     useMemo(async () => {
-        if (loading || !MaxTodos) return
+        if (loading) return
 
         setLoading(true)
         await (() => {
-            datass.push(responseData(interval))
+            responseData(interval).forEach(el => datass.push(el))
             setLoading(false)
         }).call(null)
     }, [interval])
 
-    return <div className={feed}>
-        {<div className={container ?? containerDefault}>
-            {datass.map((datas, i) =>
-                datas.map((data, j) =>
-                    children(data, (i + 1) * (j + 1))))}
-        </div>}
-        {MaxTodos ? <div className={loaderDefault ?? loader}>
-            {isScrollCollapse ? <button onClick={UpdateInterval}>Load yet</button> : null}
-            <Loader type={typeloader} active={loading} />
-        </div> : null}
-    </div >
+    return <>
+        <div className={feed ?? feedDefault} style={style} ref={scrollBody}>
+            {/* {!isScrollCollapse ? <h1>Nice</h1> : null} */}
+            <div className={container ?? containerDefault}>
+                {datass.map((data, i) => children(data, i))}
+            </div>
+            {isMaxDatas() ? <div className={loaderDefault ?? loader}>
+                {!loading && isScrollCollapse ?
+                    <button onClick={UpdateInterval}>Load yet</button> : null}
+                <Loader type={typeloader} active={loading} />
+            </div> : null}
+        </div >
+    </>
 }
 
 export default ScrollingFeed

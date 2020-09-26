@@ -1,13 +1,12 @@
-import { ReactElement, useState, useEffect } from "react";
-import Sudoku from "../components/Sudoku/Sudoku";
+import { ReactElement } from "react";
 
 const Index = (): ReactElement => {
 
-  return (<>
-    <div style={{ padding: 20, width: 500, height: 500, fontSize: 65 }}>
-      <Sudoku />
+  return <>
+    <div style={{ display: "flex", width: '100%', height: '100%', fontSize: 25 }}>
+
     </div>
-  </>)
+  </>
 };
 
 export default Index;

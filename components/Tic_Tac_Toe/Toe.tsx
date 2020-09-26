@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react'
 import style from './styles/toe.module.sass'
 
 export type TToeChar = 'x' | 'o' | null

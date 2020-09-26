@@ -1,6 +1,6 @@
+import { TCell } from "./Cell"
 import { ReactElement } from "react"
 import style from './styles/input.module.sass'
-import { TCell } from "./Cell"
 
 type Props = {
     charCurrent: TCell
@@ -10,7 +10,6 @@ type Props = {
 }
 
 const Input = ({ charCurrent, possibleChar, mode, changeCell }: Props): ReactElement => {
-
     const { input, input_keys, input_keys_current, input_keys_key } = style
     const { input_keys_disabled, input_mode_match, input_mode_write } = style
     return <div className={`${input} ${mode ? input_mode_write : input_mode_match}`}>
