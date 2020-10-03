@@ -1,5 +1,6 @@
 import { evaluate } from 'mathjs'
-import { ChangeEvent, ReactElement, useMemo, useRef, useState } from "react"
+import { ChangeEvent, ReactElement, useMemo, useRef, useState } from 'react'
+
 import style from './calculator.module.sass'
 
 //Project creating on the prototype https://dev.to/theranbrig/build-a-react-calculator-with-hooks-and-context-api-on
