@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useRef, useState } from 'react'
 
 import Canvas from '..'
+import Wall from '../blocks/Wall'
 import Picture from '../Picture'
-import Wall from '../RayCasting2D/Wall'
 import Vector from '../Vector'
 import Particle from './Particle'
 
@@ -19,41 +19,40 @@ type Props = {
 const RayCasting3D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
     const pictureRef = useRef<HTMLCanvasElement>(null!)
     const [moveRays] = useState<Vector>(new Vector(0, 10000))
-    const [sceneSettings] = useState<{ w: number, h: number }>({ w: 500, h: 400 })
+    const [sceneSettings] = useState<{ w: number, h: number }>({ w: 500, h: 500 })
     const [event] = useState<{ mouse?: Vector }>({})
     const [SetUp] = useState<Setup>({})
 
     useEffect(() => {
         const speed = 5
+        pictureRef.current.focus()
         pictureRef.current.onmousemove = (e) => event.mouse = new Vector(e.clientX, e.clientY)
         pictureRef.current.onkeydown = async (e) => {
             const { particle } = SetUp
-            await (() => {
-                switch (e.key.toLowerCase()) {
-                    case 'd':
-                    case 'arrowleft':
-                        particle.rotate(.1)
-                        break;
-                    case 'a':
-                    case 'arrowright':
-                        particle.rotate(-.1)
-                        break;
-                    case 'w':
-                    case 'arrowup':
-                        particle.move(speed)
-                        break;
-                    case 's':
-                    case 'arrowdown':
-                        particle.move(-speed)
-                        break;
-                    case '+':
-                        particle.FOV = particle.fov + 1
-                        break
-                    case '-':
-                        particle.FOV = particle.fov - 1
-                        break
-                }
-            }).call(null)
+            switch (e.key.toLowerCase()) {
+                case 'd':
+                case 'arrowleft':
+                    particle.rotate(.1)
+                    break;
+                case 'a':
+                case 'arrowright':
+                    particle.rotate(-.1)
+                    break;
+                case 'w':
+                case 'arrowup':
+                    particle.move(speed)
+                    break;
+                case 's':
+                case 'arrowdown':
+                    particle.move(-speed)
+                    break;
+                case '+':
+                    particle.FOV = particle.fov + 1
+                    break
+                case '-':
+                    particle.FOV = particle.fov - 1
+                    break
+            }
         }
     }, [])
 
@@ -129,7 +128,7 @@ const RayCasting3D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
         <Canvas ref={pictureRef}
             setup={setup}
             draw={draw}
-            width={sceneSettings.w * 2} height={500} frameUpdate={frameUpdate} />
+            width={sceneSettings.w * 2} height={sceneSettings.h} frameUpdate={frameUpdate} />
         <pre>   Control:</pre>
         <pre> w, s, a, d - move or mouse</pre>
         <pre> -, + -  fov</pre>

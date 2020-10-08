@@ -1,6 +1,6 @@
+import Wall from '../blocks/Wall'
 import Picture from '../Picture'
 import Vector from '../Vector'
-import Wall from './Wall'
 
 export default class Ray {
   pos: Vector;

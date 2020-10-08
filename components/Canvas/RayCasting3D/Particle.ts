@@ -1,6 +1,6 @@
+import Wall from '../blocks/Wall'
 import Picture from '../Picture'
 import Ray from '../RayCasting2D/Ray'
-import Wall from '../RayCasting2D/Wall'
 import Vector from '../Vector'
 
 export default class Particle {

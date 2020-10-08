@@ -1,10 +1,10 @@
 import { ReactElement, useRef, useState } from 'react'
 
 import Canvas from '..'
+import Wall from '../blocks/Wall'
 import Picture from '../Picture'
 import Vector from '../Vector'
 import Particle from './Particle'
-import Wall from './Wall'
 
 type Setup = {
   picture: Picture

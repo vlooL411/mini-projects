@@ -15,16 +15,16 @@ const Index = (): ReactElement => {
     [["game/canvas/raycasting", "Ray casting 2D"],
     ["game/canvas/raycasting3d", "Ray casting 3D"]].map(block), [])
 
-  return <>
-    <h2 style={{ marginLeft: '.5em' }}>Mini projects</h2>
-    <ul /* style={{ display: "flex", width: '100%', height: '100%', fontSize: 25 }} */>
+  return <div className='index'>
+    <h2 style={{ marginLeft: '.5em', marginTop: 0 }}>Mini projects</h2>
+    <ul>
       {games}
       <ol>
         Canvas
       {canvases}
       </ol>
     </ul>
-  </>
+  </div>
 };
 
 export default Index;

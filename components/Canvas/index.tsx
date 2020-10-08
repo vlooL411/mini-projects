@@ -13,7 +13,6 @@ function Canvas<T>({ setup, draw = () => { },
     width = 500, height = 500, frameUpdate = 1000 / 60 }: Props<T>,
     ref: MutableRefObject<HTMLCanvasElement>): ReactElement {
     useEffect(() => {
-        console.log('setup')
         const SetUp = setup(ref?.current);
 
         (async () =>
