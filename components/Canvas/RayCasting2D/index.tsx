@@ -47,6 +47,7 @@ const RayCasting2D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
   }
 
   const draw = ({ picture, walls, particle }: Setup) => {
+    if (!pictureRef?.current) return
     const { width, height } = pictureRef?.current
 
     picture.ctx.fillStyle = '#000'

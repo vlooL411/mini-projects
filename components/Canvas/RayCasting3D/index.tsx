@@ -87,7 +87,9 @@ const RayCasting3D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
     }
 
     const draw = () => {
+        if (!pictureRef?.current) return
         const { width, height } = pictureRef?.current
+
         const { picture, walls, particle } = SetUp
 
         picture.ctx.fillStyle = '#000'

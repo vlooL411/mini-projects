@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import 'public/global.sass'
+import 'public/styles/global.sass'
 
 const App = ({ Component, pageProps }): ReactElement =>
     <Component {...pageProps} />
