@@ -28,7 +28,6 @@ function Secundomer({ timeUpdate = 1 }: Props): ReactElement {
         setTime({ time: 0 })
     }
 
-    console.log('render', timer)
     return <div className={secundomer}>
         <span className={secundomer_time}>Time: {timer.time}</span>
         <button className={secundomer_turn} onClick={turn ? run : stop}>

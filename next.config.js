@@ -2,7 +2,6 @@ const withSASS = require("@zeit/next-sass")();
 const withTypescript = require("@zeit/next-typescript")();
 
 module.exports = {
-  assetPrefix: ".",
   withSASS,
   withTypescript,
   plugins: ["react-hooks"],
