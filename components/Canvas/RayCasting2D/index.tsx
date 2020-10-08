@@ -50,8 +50,8 @@ const RayCasting2D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
     const { width, height } = pictureRef?.current
 
     picture.ctx.fillStyle = '#000'
-    picture.clearRect({ x: 0, y: 0, w: width, h: height })
-    picture.rect({ x: 0, y: 0, w: width, h: height })
+    picture.clearRect(0, 0, width, height)
+    picture.rect(0, 0, width, height)
 
     picture.ctx.strokeStyle = "#fff";
     walls.forEach(wall => wall.show())
@@ -67,7 +67,7 @@ const RayCasting2D = ({ frameUpdate = 1000 / 60 }: Props): ReactElement => {
   return <Canvas ref={pictureRef}
     setup={setup}
     draw={draw}
-    width={700} height={600} 
+    width={700} height={600}
     frameUpdate={frameUpdate} />
 };
 
