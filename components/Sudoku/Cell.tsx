@@ -28,24 +28,31 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
     const onChangeCellChar = (cellChar: string): void => {
         if (!cellChar || cellChar?.length == 0) return
 
-        const cellC = cellChar.toLowerCase()[0]
-        if (cellC == 'x') changeCell(null)
-        else if (cellC === 'w') {
-            modeWrite ? isPossibleCharLengthZero() : changeCell(null)
-            setModeWrite(!modeWrite)
+        const key = cellChar.toLowerCase()[0]
+
+        switch (key) {
+            case 'x':
+            case 'ч':
+                if (modeWrite) possibleChar.length = 0
+                changeCell(null)
+                break;
+            case 'w':
+            case 'ц':
+                if (!modeWrite) changeCell(null)
+                setModeWrite(!modeWrite)
         }
 
-        if (!(cellC >= '1' && cellC <= '9')) return
+        if (!(key >= '1' && key <= '9')) return
 
         if (modeWrite) {
-            const index = possibleChar.findIndex(el => el == +cellC)
+            const index = possibleChar.findIndex(el => el == +key)
             if (index == -1) {
-                possibleChar.push((+cellC) as TCell)
+                possibleChar.push((+key) as TCell)
                 possibleChar.sort()
             }
             else possibleChar.splice(index, 1)
             setPossibleChar([...possibleChar])
-        } else changeCell((+cellC) as TCell)
+        } else changeCell((+key) as TCell)
     }
 
     const onClick = () => {
@@ -76,29 +83,27 @@ const Cell = ({ char, disabled, current, light, danger, changeCell, mouseEnter }
             danger ? cell_danger : ''
         ].join(' ')
 
-    return <>
-        <button
-            ref={inputRef}
-            className={classesName()}
-            onKeyDown={(e) => onChangeCellChar(e.key)}
-            onClick={onClick}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onMouseEnter={mouseEnter}
-            onMouseLeave={onMouseLeave}>
+    return <button
+        ref={inputRef}
+        className={classesName()}
+        onKeyDown={(e) => onChangeCellChar(e.key)}
+        onClick={onClick}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseEnter={mouseEnter}
+        onMouseLeave={onMouseLeave}>
 
-            <div className={`${cell_char} ${isPossibleCharLengthZero() ? cell_char_mark : cell_char_possible}`}>
-                {char ?? possibleChar}
-            </div>
+        <div className={`${cell_char} ${isPossibleCharLengthZero() || !modeWrite ? cell_char_mark : cell_char_possible}`}>
+            {modeWrite ? possibleChar : char}
+        </div>
 
-            {focus ?
-                <Input charCurrent={char}
-                    mode={modeWrite}
-                    possibleChar={possibleChar}
-                    changeCell={onChangeCellChar} /> :
-                null}
-        </button>
-    </>
+        {focus ?
+            <Input charCurrent={char}
+                mode={modeWrite}
+                possibleChar={possibleChar}
+                changeCell={onChangeCellChar} /> :
+            null}
+    </button>
 }
 
 export default Cell

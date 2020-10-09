@@ -1,7 +1,7 @@
 import { Rules } from "./Rules";
 import Cell, { TCell } from "./Cell";
 import { Generate } from "./GenerateSudoku";
-import { ReactElement, useState, useEffect, useMemo } from "react"
+import { ReactElement, useState, useEffect } from "react"
 import style from "./styles/sudoku.module.sass"
 
 export type Point = {
@@ -16,16 +16,18 @@ const Sudoku = (): ReactElement => {
     const [currentCell, setCurrentCell] = useState<Point>({ v: 0, h: 0 })
     const [cells, setCells] = useState<TCell[][]>([])
     const [startGame, setStartGame] = useState<boolean>(true)
+    const [answers] = useState<{ cells?: TCell[][], primary?: Point[] }>({})
 
     //new game or first play
-    const [answerCells, primaryAnswers] = useMemo<[TCell[][], Point[]]>(() => {
-        const { cells, answers, primaryAnswers } = Generate()
+    useEffect(() => {
+        const { cells, answers: ans } = Generate()
+        answers.cells = ans.cells
+        answers.primary = ans.primary
         setCells(cells)
-        return [answers, primaryAnswers]
     }, [startGame])
 
     useEffect(() => {
-        if (Rules.Win(cells, answerCells))
+        if (Rules.Win(cells, answers.cells))
             setFinish(false);
     }, [cells])
 
@@ -43,7 +45,7 @@ const Sudoku = (): ReactElement => {
 
     const NewGame = () => setStartGame(!startGame)
 
-    const isDisabled = (i, j) => primaryAnswers.findIndex(p => p.v == i && p.h == j) != -1
+    const isDisabled = (i, j) => answers.primary?.findIndex(p => p.v == i && p.h == j) != -1
 
     return <>
         {win ? <h1>Win</h1> : null}

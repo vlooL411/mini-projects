@@ -1,5 +1,5 @@
 import { TCell } from "./Cell"
-import { ReactElement } from "react"
+import { ReactElement, useMemo } from "react"
 import style from './styles/input.module.sass'
 
 type Props = {
@@ -12,19 +12,29 @@ type Props = {
 const Input = ({ charCurrent, possibleChar, mode, changeCell }: Props): ReactElement => {
     const { input, input_keys, input_keys_current, input_keys_key } = style
     const { input_keys_disabled, input_mode_match, input_mode_write } = style
+
+    const block = (key: TCell, className: string) =>
+        <li key={key} className={className} onClick={() => changeCell(key.toString())}>{key}</li>
+
+    const numbers = useMemo(() => {
+        const numberClass = (key: TCell): string =>
+            `${input_keys_key} ${charCurrent == key ? input_keys_current : ''} ` +
+            `${possibleChar.includes(key) ? input_keys_disabled : ''}`
+
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9].map((key) =>
+            block(key as TCell, numberClass(key as TCell)))
+    }, [charCurrent, possibleChar])
+
+    const tools = useMemo(() => <>
+        <li key={13}></li>
+        {block('W' as any, input_keys_key)}
+        {block('X' as any, input_keys_key)}
+    </>, [])
+
     return <div className={`${input} ${mode ? input_mode_write : input_mode_match}`}>
         <ul className={input_keys}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key, i) =>
-                <li key={i} onClick={() => changeCell(key.toString())}
-                    className={`${input_keys_key} ${charCurrent == key ? input_keys_current : ''} ${possibleChar.includes(key as TCell) ? input_keys_disabled : ''}`}>
-                    {key}
-                </li>)}
-            <li key={13}></li>
-            <li className={input_keys_key} key={11} onClick={() => changeCell('w')}>W</li>
-            <li key={12} onClick={() => changeCell('x')}
-                className={`${input_keys_key} ${mode ? input_keys_disabled : ''}`}>
-                X
-            </li>
+            {numbers}
+            {tools}
         </ul>
     </div>
 }

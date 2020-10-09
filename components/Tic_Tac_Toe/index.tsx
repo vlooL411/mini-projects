@@ -1,63 +1,73 @@
 import HistoryGame from "./HistoryGame";
 import Toe, { TToe, TToeChar } from "./Toe";
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useState, useEffect, useMemo } from "react";
 import style from './styles/tic_tac_toe.module.sass'
+import { checkWinChangeLight } from "./Rules";
 
-const toesInit = (): TToe[] => Array.from({ length: 9 }, _ => ({ char: null }))
+const randomMove = (): boolean => Math.floor(Math.random() * 10) % 2 == 0
+const toesInit = (): TToe[] => Array.from<any, TToe>({ length: 9 }, _ => ({ char: null }))
 
 const Tic_Tac_Toe = (): ReactElement => {
-    const { tictac, tictac_win, current_move, current_move_char } = style
     const { game } = style
+    const { tictac, tictac_win, current_move, current_move_char } = style
 
     const [firstRunGame, setFirstRunGame] = useState<boolean>(true)
     const [toes, setToes] = useState<TToe[]>(toesInit())
-    const [currentMove, setCurrentMove] = useState<boolean>(true)
+    const [history] = useState<TToe[][]>([])
     const [win, setWin] = useState<boolean>(false)
-    const [history, _] = useState<TToe[][]>([])
+    const [moves, setMoves] = useState<{ current?: boolean, firstMove: boolean }>({ firstMove: randomMove() })
+
+    useEffect(() => { moves.current = moves.firstMove }, [moves.firstMove])
 
     const reset = () => {
         history.length = 0
+        setWin(false)
+        setMoves({ firstMove: randomMove() })
         setFirstRunGame(true)
         setToes(toesInit())
-        setCurrentMove(true)
-        setWin(false)
     }
 
     //check win
     useEffect(() => {
+        if (win) return
         if (firstRunGame) { setFirstRunGame(!firstRunGame); return }
 
-        const cmpThreeToes = (x: number, y: number, z: number): boolean => {
-            const toe = toes[x].char
-            return toes[x].light = toes[y].light = toes[z].light =
-                (toe && (toe == toes[y].char && toe == toes[z].char))
-        }
-
-        const checkWin = () => {
-            //horizontal check
-            for (let i = 0; i < 9; i += 3)
-                if (cmpThreeToes(i, i + 1, i + 2)) return true
-            //vertical check
-            for (let i = 0; i < 3; i++)
-                if (cmpThreeToes(i, i + 3, i + 6)) return true
-            //diagonal check
-            return cmpThreeToes(0, 4, 8) || cmpThreeToes(2, 4, 6)
-        }
-
-        let checWin = checkWin()
+        const checWin = checkWinChangeLight(toes)
 
         setToes([...toes])
         history.push(toes.map(t => ({ ...t })))
 
-        if (checWin)
-            setWin(true)
+        if (checWin) setWin(true)
+    }, [moves])
 
-    }, [currentMove])
+    const historyGame = useMemo<ReactElement>(() =>
+        <HistoryGame history={history}
+            selectHistory={num => {
+                if (history.length == num + 1) return
 
-    const GetMove = (move: boolean = currentMove): TToeChar => move ? 'x' : 'o'
+                history.length = num + 1
+                setFirstRunGame(true)
+                setToes(history[num].map(h => ({ ...h })))
+                setWin(false)
+
+                const current = (num % 2 + (moves.firstMove ? 0 : 1)) != 0
+                setMoves({ ...moves, current })
+            }} />,
+        [history.length])
+
+    const GetMove = (move: boolean = moves.current): TToeChar => move ? 'x' : 'o'
+    const Win = useMemo(() =>
+        win ? <>
+            Win
+            <span className={current_move_char}>
+                {GetMove(!moves.current)}
+            </span>
+        </> : history.length == 9 ? <>End</> : null,
+        [win, history.length])
 
     return <>
-        <p className={current_move}> Current move:
+        <p className={current_move}>
+            Current move:
             <span className={current_move_char}>
                 {GetMove()}
             </span>
@@ -65,33 +75,19 @@ const Tic_Tac_Toe = (): ReactElement => {
         <div className={game}>
             <div className={tictac}>
                 {toes.map((toe, i) =>
-                    <Toe key={i} char={toe.char}
-                        light={toe.light}
+                    <Toe key={i} char={toe.char} light={toe.light}
                         onClick={() => {
                             if (toes[i].char || win) return
                             toes[i].char = GetMove()
-                            setCurrentMove(!currentMove)
+                            setMoves({ ...moves, current: !moves.current })
                         }} />
                 )}
             </div>
-            <HistoryGame history={history}
-                selectHistory={num => {
-                    if (history.length == num + 1) return
-                    history.length = num + 1
-                    setFirstRunGame(true)
-                    setToes(history[num].map(h => ({ ...h })))
-                    setCurrentMove(num % 2 != 0)
-                    setWin(false)
-                }} />
+            {historyGame}
         </div>
         <button onClick={reset}>Reset</button>
         <div className={tictac_win}>
-            {win ? <>
-                Win
-                <span className={current_move_char}>
-                    {GetMove(!currentMove)}
-                </span>
-            </> : history.length == 9 ? <>End</> : null}
+            {Win}
         </div>
     </>
 }

@@ -16,6 +16,6 @@
     "baseUrl": ".",
     "paths": {}
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.test.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.test.ts", "components/Neural/Neural.js"],
   "exclude": ["node_modules"]
 }

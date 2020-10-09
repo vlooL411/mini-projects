@@ -9,6 +9,7 @@ type Props = {
 
 const HistoryGame = ({ history, selectHistory }: Props): ReactElement => {
     const { history_game, history_game_tictac } = style
+
     return <div className={history_game}>
         {history.map((toesHis, i) =>
             <div key={i} className={history_game_tictac}
