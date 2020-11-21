@@ -5,7 +5,7 @@ type Props = {
     timeUpdate?: number
 }
 
-function Secundomer({ timeUpdate = 1 }: Props): ReactElement {
+function Secundomer({ timeUpdate = .1 }: Props): ReactElement {
     const { secundomer, secundomer_time, secundomer_turn } = style
 
     const [timer, setTime] = useState<{ time: number }>({ time: 0 })
@@ -17,7 +17,7 @@ function Secundomer({ timeUpdate = 1 }: Props): ReactElement {
     const run = () => {
         setIntervalTime(
             setInterval(() => {
-                timer.time = Math.floor((timer.time + timeUpdate) * 100) / 100
+                timer.time = Number((timer.time + timeUpdate).toFixed(2))
                 setTime({ ...timer })
             }, timeUpdate * 1000))
     }
@@ -29,7 +29,7 @@ function Secundomer({ timeUpdate = 1 }: Props): ReactElement {
     }
 
     return <div className={secundomer}>
-        <span className={secundomer_time}>Time: {timer.time}</span>
+        <span className={secundomer_time}>Time: {timer.time.toFixed(2)}</span>
         <button className={secundomer_turn} onClick={turn ? run : stop}>
             {turn ? 'Run' : 'Stop'}
         </button>
