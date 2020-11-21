@@ -1,0 +1,16 @@
+FROM node:15
+
+# Create app directory
+WORKDIR /app
+
+# Installing dependencies
+RUN yarn
+
+# Copying source files
+COPY . /app
+
+# Building app
+EXPOSE 3000
+
+# Running the app
+CMD "yarn" "start:build"

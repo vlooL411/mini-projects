@@ -2,9 +2,14 @@
 
 ```
 Install package:
-    npm i
+    yarn
 Run server in developer mode:
-    npm run dev
+    yarn dev
+
+    or
+
+Docker:
+    docker-compose up
 ```
 
 <div style='color:green'>//server on http://localhost:3000</div>
