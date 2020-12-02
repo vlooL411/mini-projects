@@ -2,5 +2,5 @@
 out
 screens
 node_modules
-Dockerfile
-package-lock.json
+dockerfile
+docker-compose.yml

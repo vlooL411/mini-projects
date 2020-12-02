@@ -1,16 +1,19 @@
-FROM node:15
+# WORK app
+FROM node:15-alpine as app
 
-# Create app directory
-WORKDIR /app
-
-# Installing dependencies
-RUN yarn
-
-# Copying source files
+# Copy source
 COPY . /app
 
-# Building app
-EXPOSE 3000
+# Installing dependencies
+RUN cd /app && yarn && yarn run build
+
+# WORK main app
+FROM node:15-alpine
+
+# For start
+COPY --from=app /app/.next /app/.next
+COPY --from=app /app/node_modules /node_modules
+COPY --from=app /app/package.json .
 
 # Running the app
-CMD "yarn" "start:build"
+CMD yarn run start ./app

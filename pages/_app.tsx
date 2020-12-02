@@ -1,7 +1,10 @@
-import { ReactElement } from "react";
-import 'public/styles/global.sass'
+import 'public/styles/global.sass';
 
-const App = ({ Component, pageProps }): ReactElement =>
-    <Component {...pageProps} />
+import { ReactElement } from 'react';
+import { AppProps } from 'next/app';
 
-export default App
+const App = ({ Component, pageProps }: AppProps): ReactElement => (
+	<Component {...pageProps} />
+);
+
+export default App;

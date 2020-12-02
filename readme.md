@@ -5,9 +5,7 @@ Install package:
     yarn
 Run server in developer mode:
     yarn dev
-
     or
-
 Docker:
     docker-compose up
 ```

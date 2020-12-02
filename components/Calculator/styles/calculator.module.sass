@@ -1,9 +1,9 @@
 $back: #6abaac
 $button: #d3765c
-$num: #111
-$compute: #2e3436
 
 .calculator
+    --backButton: #{$button}
+
     background-color: $back
     padding: 2rem
     padding-top: .5rem
@@ -13,7 +13,7 @@ $compute: #2e3436
         font-size: 1.1em
         margin-bottom: 1.5rem
     .info
-        background-color: $button
+        background-color: var(--backButton)
         margin: .1em
         color: white
         border: 3px solid white
@@ -39,26 +39,3 @@ $compute: #2e3436
         justify-content: center
         grid-template-columns: repeat(4, auto)
         grid-template-rows: repeat(4, auto)
-        button
-            user-select: none
-            text-align: center
-            padding: 0
-            height: 2.5em
-            width: 2.8em
-            border-radius: 1rem
-            font-size: .5em
-            color: white
-            margin: .1em .2em
-            &:focus
-                outline: none
-                border: 2px solid black
-        .zero
-            grid-area: 5 / 1 / 6 / 3
-            width: auto
-        .sign
-            background-color: white
-            color: $compute
-        .num
-            background-color: $button
-        .compute
-            background-color: $compute

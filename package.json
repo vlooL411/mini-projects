@@ -1,36 +1,44 @@
 {
-  "name": "mini-projects",
-  "version": "1.0.0",
-  "description": "Skills development project",
-  "license": "ISC",
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "start:build": "yarn build && next start",
-    "test": "jest"
-  },
-  "keywords": [
-    "react",
-    "ts",
-    "mini-project"
-  ],
-  "dependencies": {
-    "next": "^10.0.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "loaders.css": "^0.1.2",
-    "mathjs": "^8.0.1",
-    "react-loaders": "^3.0.1",
-    "sass": "^1.29.0"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.9",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@zeit/next-sass": "^1.0.1",
-    "jest": "^26.6.3",
-    "typescript": "^4.1.2"
-  }
+	"name": "mini-projects",
+	"version": "1.0.0",
+	"private": true,
+	"license": "MIT",
+	"description": "Skills development project",
+	"scripts": {
+		"dev": "next",
+		"build": "next build",
+		"start": "next start",
+		"rm": "rmdir /s /q node_modules",
+		"prettier": "npx prettier --ignore-path .gitignore --write .",
+		"lint": "eslint --ignore-path .gitignore **/*.{js,ts,tsx} --fix",
+		"lint:quiet": "yarn lint --quiet"
+	},
+	"keywords": [
+		"react",
+		"ts",
+		"mini-project"
+	],
+	"dependencies": {
+		"next": "^10.0.3",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"loaders.css": "^0.1.2",
+		"mathjs": "^8.0.1",
+		"react-loaders": "^3.0.1",
+		"sass": "^1.29.0"
+	},
+	"devDependencies": {
+		"prettier": "^2.2.1",
+		"eslint-config-prettier": "^6.15.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"eslint": "^7.14.0",
+		"@typescript-eslint/parser": "^4.9.0",
+		"@typescript-eslint/eslint-plugin": "^4.9.0",
+		"eslint-plugin-react": "^7.21.5",
+		"@types/node": "^14.14.10",
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"@zeit/next-sass": "^1.0.1",
+		"typescript": "^4.1.2"
+	}
 }
