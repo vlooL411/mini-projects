@@ -1,0 +1,28 @@
+$color: var(--key-color)
+$width: var(--key-width)
+$height: var(--key-height)
+$border: var(--key-border)
+
+.white
+    width: $width
+    height: $height
+
+    border: $border solid $color
+    border-top: none
+    border-bottom-left-radius: 8px
+    border-bottom-right-radius: 8px
+
+    cursor: pointer
+    display: flex
+    justify-content: center
+    &:hover
+        border-color: gray
+    &_press
+        background-color: yellow
+    &_note
+        align-self: flex-end
+
+        color: black
+
+        font-size: 1em
+        margin-bottom: .2em

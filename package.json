@@ -9,9 +9,11 @@
 		"build": "next build",
 		"start": "next start",
 		"rm": "rmdir /s /q node_modules",
+		"rm:node": "rmdir /s /q node_modules",
 		"prettier": "npx prettier --ignore-path .gitignore --write .",
 		"lint": "eslint --ignore-path .gitignore **/*.{js,ts,tsx} --fix",
-		"lint:quiet": "yarn lint --quiet"
+		"lint:quiet": "yarn lint --quiet",
+		"type-check": "tsc --pretty --noEmit"
 	},
 	"keywords": [
 		"react",

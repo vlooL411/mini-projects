@@ -1,0 +1,36 @@
+$back: black
+$width: 3em
+$height: 10em
+$border: .25em
+
+.piano
+    --key-color: #{$back}
+    --key-width: #{$width}
+    --key-height: #{$height}
+    --key-border: #{$border}
+
+    font-size: 20px
+    overflow: hidden
+    height: inherit
+
+    display: grid
+    grid-template-rows: auto auto
+    justify-content: center
+    align-content: center
+    user-select: none
+    &_line
+        background-color: $back
+        width: auto
+        height: 1em
+
+    &_keys
+        display: flex
+    &_whites
+        position: relative
+        display: flex
+    &_blacks
+        position: absolute
+        width: 100%
+
+        display: flex
+        justify-content: space-evenly

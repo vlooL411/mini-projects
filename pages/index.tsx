@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { ReactElement, useMemo } from 'react';
+import Link from 'next/link'
+import { ReactElement, useMemo } from 'react'
 
 const Index = (): ReactElement => {
 	const block = ([href, title]: [string, string], key): ReactElement => (
@@ -13,6 +13,8 @@ const Index = (): ReactElement => {
 	const games = useMemo<ReactElement[]>(
 		() =>
 			[
+				['scrollinfinity', 'ScrollInfinity'],
+				['game/piano', 'Piano'],
 				['game/calculator', 'Calculator'],
 				['game/secundomer', 'Secundomer'],
 				['game/sudoku', 'Sudoku'],

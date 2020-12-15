@@ -21,24 +21,24 @@ const simulation = (
 	if (state.skip) return;
 
 	const cs = [...cells];
-	for (let i = 0; i < cells.length; i++)
-		for (let j = 0; j < cells[i].length; j++) {
+	cs.forEach((currentCells, i) =>
+		currentCells.forEach((cell, j) => {
 			let neighbors = 0;
 			operations.forEach(([x, y]) => {
-				const newI = i + x;
-				const newJ = j + y;
+				const [newI, newJ] = [i + x, j + y];
 				if (
 					newI >= 0 &&
-					newI < cells.length &&
+					newI < cs.length &&
 					newJ >= 0 &&
-					newJ < cells[i].length
+					newJ < currentCells.length
 				)
 					neighbors += cs[newI][newJ];
 			});
 
-			if (neighbors < 2 || neighbors > 3) cs[i][j] = 0;
-			else if (cs[i][j] == 0 && neighbors === 3) cs[i][j] = 1;
-		}
+			if (neighbors < 2 || neighbors > 3) currentCells[j] = 0;
+			else if (cell == 0 && neighbors === 3) currentCells[j] = 1;
+		}),
+	);
 
 	setCells(cs);
 };

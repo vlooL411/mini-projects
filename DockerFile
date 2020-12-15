@@ -12,6 +12,7 @@ FROM node:15-alpine
 
 # For start
 COPY --from=app /app/.next /app/.next
+COPY --from=app /app/public /app/public
 COPY --from=app /app/node_modules /node_modules
 COPY --from=app /app/package.json .
 

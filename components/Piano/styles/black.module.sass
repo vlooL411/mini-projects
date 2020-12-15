@@ -1,0 +1,27 @@
+$color: var(--key-color)
+$width: var(--key-width)
+$height: var(--key-height)
+$border: var(--key-border)
+
+.black
+    width: calc(#{$width} / 2)
+    height: calc(#{$height} / 2)
+
+    cursor: pointer
+    background-color: $color
+    display: flex
+    justify-content: center
+    z-index: 1
+    &:hover
+        border-color: gray
+    &_press
+        transition: .2s
+        background-color: #5b8062
+        .black_note
+            font-size: .6em
+            margin-bottom: .7em
+    &_note
+        align-self: flex-end
+        font-size: 1em
+        filter: invert(1)
+        margin-bottom: .2em
